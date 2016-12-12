@@ -23,3 +23,16 @@
   content: "|";
   padding-right: 0.3em;
 }
+
+
+.center-text{
+  text-align: center;
+}
+
+.left-text{
+  text-align: left !important;
+}
+
+.right-text{
+  text-align: right;
+}
