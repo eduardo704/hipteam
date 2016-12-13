@@ -36,3 +36,15 @@
 .right-text{
   text-align: right;
 }
+.done{
+   text-decoration: line-through;
+}
+
+.check-margin{
+  padding: 0px !important;
+  margin-bottom: 20px;
+}
+
+.correct-cursor{
+  cursor: pointer;
+}

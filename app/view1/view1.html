@@ -1,93 +1,60 @@
 <nav class="navbar navbar-default">
     <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <a class="navbar-brand" style="boder-right" href="#">Brand</a>
         </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <!--<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-                <li><a href="#">Link</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">One more separated link</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <form class="navbar-form navbar-left">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search">
-                </div>
-                <button type="submit" class="btn btn-default">Submit</button>
-            </form>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Link</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>-->
-        <!-- /.navbar-collapse -->
     </div>
-    <!-- /.container-fluid -->
 </nav>
-
 <ol class="breadcrumb">
-    <li><a href="#">Enter Consuption</a></li>
-    <li><a href="#">Choose Tariff</a></li>
+    <li><a href="#" class="done">Enter Consuption <i class="fa fa-check" aria-hidden="true"></i></a></li>
+    <li><a href="#" class="done">Choose Tariff <i class="fa fa-check" aria-hidden="true"></i></a></li>
     <li class="active">Contracting Details</li>
 </ol>
-
 <h3>Contracting Details</h3>
-
 <div class="container">
     <div class="col-sm-8">
-        <form class="form-horizontal">
+        <form class="form-horizontal" name="userForm" ng-submit="submitForm()">
             <fieldset>
                 <legend>Personal Information</legend>
                 <div>
                     <div class="form-group">
                         <label for="inputGender" class="col-lg-2 control-label">Gender</label>
                         <div class="col-lg-10">
-                            <select name="singleSelect" class="form-control" id="singleSelect" ng-model="data.singleSelect">
-                                         <option>---Please select---</option> <!-- not selected / blank option -->
-                                        <option value="{{data.option1}}">Male</option> <!-- interpolation -->
-                                     <option value="option-2">Female</option>
+                            <select name="singleSelect" class="form-control" id="singleSelect" ng-model="formData.gender">
+                                         <option style="display:none" value="">Please select</option>  not selected / blank option 
+                                        <option value="Male">Male</option> <!-- interpolation -->
+                                     <option value="Female">Female</option>
                             </select>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" ng-class="{ 'has-error' : userForm.firstName.$invalid && !userForm.firstName.$pristine }">
                         <label for="inputFirstName" class="col-lg-2 control-label">First Name</label>
                         <div class="col-lg-10">
-                            <input type="text" class="form-control" id="inputFirstName" placeholder="First Name">
+                            <input type="text" ng-model="formData.firstName" name="firstName" class="form-control" id="inputFirstName" placeholder="First Name"
+                                ng-pattern="/^[a-zA-Z\s]*$/" ng-required="true">
+                            <p ng-show="userForm.firstName.$invalid" class="help-block">You First name is required.</p>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" ng-class="{ 'has-error' : userForm.lastName.$invalid && !userForm.lastName.$pristine }">
                         <label for="inputLastName" class="col-lg-2 control-label">Last Name</label>
                         <div class="col-lg-10">
-                            <input type="text" class="form-control" id="inputLastName" placeholder="Last Name">
+                            <input type="text" class="form-control" name="lastName" ng-model="formData.lastName" id="inputLastName" placeholder="Last Name"
+                                ng-pattern="/^[a-zA-Z\s]*$/" ng-required="true">
+                            <p ng-show="userForm.lastName.$invalid " class="help-block">You Last name is required.</p>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" ng-class="{ 'has-error' : userForm.birthDate.$invalid && !userForm.birthDate.$pristine }">
                         <label for="inputDateOfBirht" class="col-lg-2 control-label">Date of Birth</label>
                         <div class="col-lg-10">
-                            <input type="text" class="form-control" id="inputDateOfBirht" placeholder="Date of Birth">
+                            <p class="input-group">
+                                <input name="birthDate" type="text" class="form-control" uib-datepicker-popup="{{format}}" is-open="datePickerOpen" ng-model="formData.bithDate"
+                                    is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close"
+                                    alt-input-formats="altInputFormats" />
+                                <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="datePickerOpen=true"><i class="glyphicon glyphicon-calendar"></i></button>
+                             </span>
+                            </p>
+                            <p ng-show="userForm.birthDate.$invalid " class="help-block">You Birth Date is required.</p>
                         </div>
                     </div>
                 </div>
@@ -95,99 +62,186 @@
             <fieldset>
                 <legend>Contact Information</legend>
                 <div>
-                    <div class="form-group">
+                    <div class="form-group" ng-class="{ 'has-error' : userForm.street.$invalid && !userForm.street.$pristine }">
                         <label for="inputStreet" class="col-lg-2 control-label">Street</label>
-                        <div class="col-lg-10">
-                            <input type="text" class="form-control" id="inputStreet" placeholder="Street">
+                        <div class="col-lg-10 ">
+                            <input type="text" class="form-control" name="street" ng-model="formData.street" id="inputStreet" placeholder="Street" ng-required="true">
+                            <p ng-show="userForm.street.$invalid " class="help-block">Street is required.</p>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="inputHouseNumber" class="col-lg-2 control-label">House Number</label>
                         <div class="col-lg-10">
-                            <input type="text" class="form-control" id="inputHouseNumber" placeholder="House Number">
+                            <input type="text" class="form-control" id="inputHouseNumber" ng-model="formData.houseNumber" placeholder="House Number">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="inputCity" class="col-lg-2 control-label">City</label>
                         <div class="col-lg-10">
-                            <input type="text" class="form-control" id="inputCity" placeholder="City">
+                            <input type="text" class="form-control" id="inputCity" ng-model="formData.city" placeholder="City">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="inputZipCode" class="col-lg-2 control-label">Zip Code</label>
                         <div class="col-lg-10">
-                            <input type="text" class="form-control" id="inputZipCode" placeholder="Zip Code">
+                            <input type="text" class="form-control" ng-model="formData.zipCode" id="inputZipCode" placeholder="Zip Code">
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
                         <label for="inputEmail" class="col-lg-2 control-label">Email Adress</label>
                         <div class="col-lg-10">
-                            <input type="text" class="form-control" id="inputEmail" placeholder="Email Adress">
+                            <input type="email" class="form-control" name="email" id="inputEmail" ng-model="formData.email" placeholder="Email Adress"
+                                ng-required="true">
+                            <p ng-show="userForm.email.$invalid " class="help-block">Enter a valid email.</p>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" ng-class="{ 'has-error' : userForm.phone.$invalid && !userForm.phone.$pristine }">
                         <label for="inputPhone" class="col-lg-2 control-label">Phone Number</label>
                         <div class="col-lg-10">
-                            <input type="text" class="form-control" id="inputPhone" placeholder="Phone Number">
+                            <input type="text" name="phone" class="form-control" id="inputPhone" placeholder="Phone Number" ng-model="formData.phone"
+                                ng-required="true" ng-pattern="/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/">
+                            <p ng-show="userForm.phone.$invalid " class="help-block">Enter a valid 10 digits Phone Number.</p>
                         </div>
                     </div>
                 </div>
+                <div class="col-lg-10 col-lg-offset-2 check-margin">
+                    <div class="checkbox ">
+                        <label>
+                         <input ng-model="showdiffInvoice" type="checkbox"  class="big-checkbox">Different Invoice Address
+                     </label>
+                    </div>
+                </div>
             </fieldset>
+            <div ng-show="showdiffInvoice">
+                <fieldset>
+                    <div class="form-group">
+                        <label for="inputDiffGender" class="col-lg-2 control-label">Gender</label>
+                        <div class="col-lg-10">
+                            <select name="singleSelect" class="form-control" id="singleSelect" ng-model="diffInvoice.gender">                                       
+                                     <option value="Company">-</option> <!-- interpolation -->
+                                        <option value="Male">Male</option> <!-- interpolation -->
+                                     <option value="Female">Female</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="{ 'has-error' : userForm.diffName.$invalid && !userForm.diffName.$pristine }">
+                        <label for="inputDiffName" class="col-lg-2 control-label">Name or Company Name</label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" id="inputDiffName" name="diffName" ng-model="diffInvoice.name" placeholder="Name or Company Name"
+                                ng-required='showdiffInvoice'>
+                            <p ng-show="userForm.diffName.$invalid " class="help-block">This Field is required.</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputDiffStreet" class="col-lg-2 control-label">Street</label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" id="inputDiffStreet" ng-model="diffInvoice.street" placeholder="Street">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputDiffHouseNumber" class="col-lg-2 control-label">House Number</label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" id="inputDiffStreetNumber" ng-model="diffInvoice.houseNumber" placeholder="House Number">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputDiffCity" class="col-lg-2 control-label">City</label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" id="inputDiffCity" ng-model="diffInvoice.city" placeholder="City">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputDiffZip" class="col-lg-2 control-label">Zip Code</label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" id="inputDiffZip" ng-model="diffInvoice.zipCode" placeholder="ZIP Code">
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
             <fieldset>
                 <legend>Current Provider</legend>
                 <div>
-                    <div class="form-group">
+                    <div class="form-group" ng-class="{ 'has-error' : userForm.supplier.$invalid && !userForm.supplier.$pristine }">
                         <label for="inputCurrentSuplier" class="col-lg-2 control-label">Current Suplier Name</label>
                         <div class="col-lg-10">
-                            <input type="text" class="form-control" id="inputCurrentSuplier" placeholder="Current Suplier Name">
+                            <input autocomplete="off" type="text" id="inputCurrentSuplier" name="supplier" ng-model="formData.supplier" uib-typeahead="supplier for supplier in suppliers | filter:$viewValue | limitTo:8"
+                                class="form-control" placeholder="Current Suplier Name" ng-required="true">
+                            <p ng-show="userForm.supplier.$invalid " class="help-block">Enter a valid supplier.</p>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="inputCustomerNumber" class="col-lg-2 control-label">Customer Number</label>
                         <div class="col-lg-10">
-                            <input type="text" class="form-control" id="inputCustomerNumber" placeholder="Customer Number">
+                            <input type="text" class="form-control" id="inputCustomerNumber" ng-model="formData.customerNumber" placeholder="Customer Number">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="inputCustomerID" class="col-lg-2 control-label">Customer ID</label>
                         <div class="col-lg-10">
-                            <input type="text" class="form-control" id="inputCustomerID" placeholder="Customer ID">
+                            <input type="text" class="form-control" id="inputCustomerID" ng-model="formData.customerId" placeholder="Customer ID">
                         </div>
                     </div>
                 </div>
             </fieldset>
             <fieldset>
-                <legend>Current Provider</legend>
+                <legend>Payment Information</legend>
                 <div>
-                    <div class="form-group">
+                    <div class="form-group" ng-class="{ 'has-error' : userForm.ibank.$invalid && !userForm.ibank.$pristine }">
                         <label for="inputIbankAcountNumber" class="col-lg-2 control-label">Ibank Acount Number</label>
                         <div class="col-lg-10">
-                            <input type="text" class="form-control" id="inputIbankAcountNumber" placeholder="Ibank Acount Number">
+                            <input type="text" name="ibank" ng-required="true" ng-model="formData.ibank" class="form-control" id="inputIbankAcountNumber"
+                                ng-pattern="'^[0-9]+$'" placeholder="Ibank Acount Number">
+                            
+                            <p ng-show="userForm.ibank.$invalid " class="help-block">Enter a valid IBANK number.</p>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="BIC" class="col-lg-2 control-label">BIC</label>
+                        <label for="inputBIC" class="col-lg-2 control-label">BIC</label>
                         <div class="col-lg-10">
-                            <input type="text" class="form-control" id="BIC" placeholder="BIC">
+                            <input type="text" class="form-control" id="inputBIC" ng-model="formData.ibic" placeholder="BIC">
                         </div>
                     </div>
-                    <div class="col-lg-10 col-lg-offset-2">
+                    <div class="col-lg-10 col-lg-offset-2 check-margin">
                         <div class="checkbox ">
                             <label>
-                         <input type="checkbox" class="big-checkbox">I agree with the direct debit procedure
+                         <input type="checkbox" ng-model="showdiffHolderName" class="big-checkbox">Accoun holder is not me
                      </label>
                         </div>
                     </div>
-                    <div class="col-lg-10 col-lg-offset-2">
+                    <div ng-show="showdiffHolderName">
+                        <div class="form-group" ng-class="{ 'has-error' : userForm.diffAccHolder.$invalid && !userForm.diffAccHolder.$pristine }">
+                            <label for="inputAccountHolder" class="col-lg-2 control-label">Account Holder Name</label>
+                            <div class="col-lg-10">
+                                <input type="text" ng-pattern="/^[a-zA-Z\s]*$/" ng-model="difHolderName" name="diffAccHolder" class="form-control" id="inputAccountHolder"
+                                    placeholder="Account Holder Name" ng-required='accHolderCheck'>
+                                <p ng-show="userForm.diffAccHolder.$invalid " class="help-block">Enter a valid Name</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-10 col-lg-offset-2 check-margin" ng-class="{ 'has-error' : userForm.accountCheckAgree.$invalid && !userForm.accountCheckAgree.$pristine }">
+                            <div class="checkbox ">
+                                <label>
+                         <input type="checkbox"  name="accountCheckAgree" ng-required='accHolderCheck' class="big-checkbox">I assure that I am authorized to use the account details of the account holde provided that I am not an account holder. I assure that my accouting address is correct and that I will forward any communication to the account holder.
+                     </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-10 col-lg-offset-2 check-margin">
+                        <div class="checkbox ">
+                            <label>
+                         <input type="checkbox" ng-required="true" name="agreeDebit" ng-model="agreeDebit" class="big-checkbox check-margin">I agree with the direct debit procedure
+                     </label>
+                        </div>
+                    </div>
+                    <div class="col-lg-10 col-lg-offset-2 check-margin">
                         <div class="checkbox">
                             <label>
-                         <input type="checkbox"  class="big-checkbox">I accept the terms and conditions. I have the Revocation read and agree to it
+                         <input type="checkbox"  ng-required="true" ng-model="agreeedTerms"  class="big-checkbox check-margin">I accept the terms and conditions. I have the Revocation read and agree to it
                      </label>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-12">
-                    <a class="btn btn-block btn-info" href="#">Place Order</a>
+                <div class="col-sm-12 check-margin">
+                    <button class="btn btn-block btn-info" ng-disabled="!(agreeedTerms && agreeDebit)" type="submit" href="#">Place Order</button>
                 </div>
             </fieldset>
         </form>
@@ -219,13 +273,47 @@
                                     <p class="form-control-static right-text">12 Monate</p>
                                 </div>
                             </div>
-                            <hr/> Details
-                            <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                            <hr/>
+                            <div ng-click="showDetails()" class="correct-cursor">
+                                <span class="correct-cursor">Details
+                                    <div style="float: right">
+                                <i class="fa fa-arrow-down" aria-hidden="true" ng-if="!isDetailsVisble"></i>
+                                <i class="fa fa-arrow-up" aria-hidden="true" ng-if="isDetailsVisble"></i>
+                                </div>
+                            </span>
+                            </div>
                         </fieldset>
+                        <div ng-show="isDetailsVisble">
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="col-sm-5 left-text control-label">Montly Fee</label>
+                                    <div class="col-sm-7">
+                                        <p class="form-control-static right-text">112 €/mo</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-5 left-text control-label">Arbeitspreis</label>
+                                    <div class="col-sm-7">
+                                        <p class="form-control-static right-text">24 cc/kWn</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-5 left-text control-label">Grundepreis</label>
+                                    <div class="col-sm-7">
+                                        <p class="form-control-static right-text">5 €/mo</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-5 left-text control-label">Vertragslaufzeit</label>
+                                    <div class="col-sm-7">
+                                        <p class="form-control-static right-text">12 Monate</p>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
