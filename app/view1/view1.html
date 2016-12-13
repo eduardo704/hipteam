@@ -203,7 +203,7 @@
                     <div class="col-lg-10 col-lg-offset-2 check-margin">
                         <div class="checkbox ">
                             <label>
-                         <input type="checkbox" ng-model="showdiffHolderName" class="big-checkbox">Accoun holder is not me
+                         <input type="checkbox" ng-model="showdiffHolderName" class="big-checkbox">Account holder is not me
                      </label>
                         </div>
                     </div>
@@ -212,14 +212,14 @@
                             <label for="inputAccountHolder" class="col-lg-2 control-label">Account Holder Name</label>
                             <div class="col-lg-10">
                                 <input type="text" ng-pattern="/^[a-zA-Z\s]*$/" ng-model="difHolderName" name="diffAccHolder" class="form-control" id="inputAccountHolder"
-                                    placeholder="Account Holder Name" ng-required='accHolderCheck'>
+                                    placeholder="Account Holder Name" ng-required='showdiffHolderName'>
                                 <p ng-show="userForm.diffAccHolder.$invalid " class="help-block">Enter a valid Name</p>
                             </div>
                         </div>
                         <div class="col-lg-10 col-lg-offset-2 check-margin" ng-class="{ 'has-error' : userForm.accountCheckAgree.$invalid && !userForm.accountCheckAgree.$pristine }">
                             <div class="checkbox ">
                                 <label>
-                         <input type="checkbox"  name="accountCheckAgree" ng-required='accHolderCheck' class="big-checkbox">I assure that I am authorized to use the account details of the account holde provided that I am not an account holder. I assure that my accouting address is correct and that I will forward any communication to the account holder.
+                         <input type="checkbox"  name="accountCheckAgree" ng-required='showdiffHolderName' class="big-checkbox">I assure that I am authorized to use the account details of the account holde provided that I am not an account holder. I assure that my accouting address is correct and that I will forward any communication to the account holder.
                      </label>
                             </div>
                         </div>

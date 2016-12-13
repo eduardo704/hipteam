@@ -13,7 +13,7 @@
                      alert("server success");
                  },
                  function(response){
-                      alert("server fail but please still hire me!");
+                      alert("server fail but please still hire me! Check console for details and network for posted data");
                  });
         };
         return factory;
