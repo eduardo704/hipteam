@@ -1,12 +1,20 @@
 'use strict';
 
 (function () {
-    var postFormFactory = function () {
+    var postFormFactory = function ($http) {
         var factory = {};
         factory.sendForm = function (formData) {
-            //  $http.post('/someUrl', formData).then(successCallback, errorCallback);
+            
             var str = JSON.stringify(formData);
-            console.log(str);
+            console.log("Generated JSON: "+str);
+
+             $http.post('/someUrl', formData).then(
+                 function(response){
+                     alert("server success");
+                 },
+                 function(response){
+                      alert("server fail but please still hire me!");
+                 });
         };
         return factory;
     };
